@@ -1,0 +1,27 @@
+name: Update the Renai Daikou wiki chapters
+on:
+    push:
+        branches:
+            - master
+    schedule:
+        - cron: '0 15 * * 3'
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        env:
+            URL-1 : ${{ secrets.URL-1 }}
+            WIKI_BOT_USER: ${{ secrets.WIKI_BOT_USER }}
+            WIKI_BOT_PASS: ${{ secrets.WIKI_BOT_PASS }}
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v4.1.2
+            - name: Setup Python
+              uses: actions/setup-python@v5.1.0
+              with:
+                python-version: '3.10'
+            - name: Python Dependency Installation
+              uses: py-actions/py-dependency-install@v4
+
+            - name: Run the python scripts
+              run: |
+                python3 auto-chapter-renai.py
