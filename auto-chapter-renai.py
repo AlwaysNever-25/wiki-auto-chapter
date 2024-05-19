@@ -33,7 +33,7 @@ else:
 
 S = requests.Session()
 
-URL = os.environ['URL-1']
+URL = os.environ['URL1']
 
 # Step 1: GET request to fetch login token
 PARAMS_0 = {
