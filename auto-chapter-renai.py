@@ -91,9 +91,9 @@ if not SEARCH[1]:
             "action": "edit",
             "title": "Chapter %s" % str(chapter_num),
             "bot": "yes",
-            "token": CSRF_TOKEN,
             "format": "json",
-            "text": "{{stub}}{{Chapter \n|title         = \n|image    = Chapter %s.png\n|kanji         = \n|romaji       = \n|volume       = \n|pages = 18\n|arc = \n|issue = Weekly Young Jump #%d 2024 \n|release_date = %s\n|prev     = [[Chapter %s]]\n|next         = [[Chapter %s]]\n}}\n{{Nihongo|'''Chapter %s'''||}} is the %s chapter of ''[[Renai Daikou]]'' manga series, written by [[Aka Akasaka]] and illustrated by [[Nishizawa 5mm]]. It will be released in issue #%d, 2024 of ''[[Weekly Young Jump]]'' on %s.<!--<ref>[https://ynjn.jp/viewer/9862/ 第%s話 ] (in Japanese). ''Young Jump''. Retrieved %s</ref>-->\n== Summary ==\n\n\n== Characters ==\n\n\n== Trivia ==\n\n\n== References ==\n{{References}}\n\n\n== Navigation ==\n{{MangaNavigation}}\n\n[[Category:Chapters]]" % (chapter_num, magazine_number, chapter_date, chapter_num-1, chapter_num+1, chapter_num, chapter_ord, magazine_number, chapter_date, chapter_num, chapter_date)
+            "text": "{{stub}}{{Chapter \n|title         = \n|image    = Chapter %s.png\n|kanji         = \n|romaji       = \n|volume       = \n|pages = 18\n|arc = \n|issue = Weekly Young Jump #%d 2024 \n|release_date = %s\n|prev     = [[Chapter %s]]\n|next         = [[Chapter %s]]\n}}\n{{Nihongo|'''Chapter %s'''||}} is the %s chapter of ''[[Renai Daikou]]'' manga series, written by [[Aka Akasaka]] and illustrated by [[Nishizawa 5mm]]. It will be released in issue #%d, 2024 of ''[[Weekly Young Jump]]'' on %s.<!--<ref>[https://ynjn.jp/viewer/9862/ 第%s話 ] (in Japanese). ''Young Jump''. Retrieved %s</ref>-->\n== Summary ==\n\n\n== Characters ==\n\n\n== Trivia ==\n\n\n== References ==\n{{References}}\n\n\n== Navigation ==\n{{MangaNavigation}}\n\n[[Category:Chapters]]" % (chapter_num, magazine_number, chapter_date, chapter_num-1, chapter_num+1, chapter_num, chapter_ord, magazine_number, chapter_date, chapter_num, chapter_date),
+            "token": CSRF_TOKEN
         }
     R = S.post(URL, data=PARAMS_3)
     DATA = R.json()
@@ -103,9 +103,9 @@ if not SEARCH[1]:
             "action": "edit",
             "title": "Chapter %s" % str(chapter_num),
             "bot": "yes",
-            "token": CSRF_TOKEN,
             "format": "json",
-            "text": "{{Countdown/Chapter\n|chapter=%s\n|date=%s\n}}" % (chapter_num, chapter_date_cd)
+            "text": "{{Countdown/Chapter\n|chapter=%s\n|date=%s\n}}" % (chapter_num, chapter_date_cd),
+            "token": CSRF_TOKEN
     }
     R = S.post(URL, data=PARAMS_4)
     DATA = R.json()
