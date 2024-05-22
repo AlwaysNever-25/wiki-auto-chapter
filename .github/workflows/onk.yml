@@ -24,4 +24,4 @@ jobs:
 
             - name: Run the python scripts
               run: |
-                python3 auto-chapter.py
+                python3 auto-chapter-onk.py
