@@ -4,12 +4,12 @@ on:
         branches:
             - master
     schedule:
-        - cron: '0 15 * * 3'
+        - cron: '0/5 15 * * 3'
 jobs:
     build:
         runs-on: ubuntu-latest
         env:
-            URL-1 : ${{ secrets.URL-1 }}
+            URL1 : ${{ secrets.URL1 }}
             WIKI_BOT_USER: ${{ secrets.WIKI_BOT_USER }}
             WIKI_BOT_PASS: ${{ secrets.WIKI_BOT_PASS }}
         steps:
