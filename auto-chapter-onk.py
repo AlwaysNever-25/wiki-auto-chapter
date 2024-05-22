@@ -98,7 +98,7 @@ chapter_ord = p.number_to_words(p.ordinal(chapter_num+1))
 date = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('MM-DD')
 dayofweek = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('dddd')
 
-if dayofweek == "Wednesday":
+if dayofweek == "Thursday":
     chapter_date = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('MMMM D, YYYY')
     magazine_number = int(arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('DDD')) / 7 + 5
 else:
@@ -189,7 +189,7 @@ PARAMS_6 = {
     "action": "edit",
     "title": "Template:Latest_Chapter",
     "format": "json",
-    "text": "{{#if:{{{name|}}}\n|{{#switch:{{{name|}}}\n|image = [[File:{{#ifexist:File:Chapter %s cover.png|Chapter %s cover.png|{{#ifexist:File:Chapter %s cover.jpg|Chapter 148 cover.jpg|None.png}}}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|[[Chapter %s|'''%s''']]<br>|%s|%s}}\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_title, chapter_title_jp, chapter_romaji),
+    "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Chapter %s cover.png|Chapter %s cover.png|{{#ifexist:File:Chapter %s cover.jpg|Chapter 148 cover.jpg|None.png}}}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|[[Chapter %s|'''%s''']]<br>|%s|%s}}\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_title, chapter_title_jp, chapter_romaji),
     "token": CSRF_TOKEN
 }
 

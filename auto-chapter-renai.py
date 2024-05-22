@@ -39,7 +39,7 @@ dayofweek = arrow.utcnow().to('Asia/Tokyo').format('dddd')
 
 if dayofweek == "Thursday":
     chapter_date = arrow.utcnow().to('Asia/Tokyo').format('MMMM D, YYYY')
-    chapter_date_cd = arrow.utcnow().to('Asia/Tokyo').format('MMMM D YYYY')
+    chapter_date_cd = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('MMMM D YYYY')
     magazine_number = int(arrow.utcnow().to('Asia/Tokyo').format('DDD')) / 7 + 5
 else:
     chapter_date = 0
@@ -118,7 +118,7 @@ PARAMS_5 = {
     "action": "edit",
     "title": "Template:Last_Chapter",
     "format": "json",
-    "text": "{{#if:{{{name|}}}\n|{{#switch:{{{name|}}}\n|image = [[File:{{#ifexist:File:Chapter %s.png|Chapter %s.png|None.png}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|[[Chapter %s|'''Chapter %s''']]<br>|%s|%s}}\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_title_jp, chapter_romaji),
+    "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Chapter %s.png|Chapter %s.png|None.png}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|[[Chapter %s|'''Chapter %s''']]<br>|%s|%s}}\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_title_jp, chapter_romaji),
     "token": CSRF_TOKEN
 }
 
