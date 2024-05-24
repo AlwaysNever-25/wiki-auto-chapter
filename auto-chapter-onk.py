@@ -68,14 +68,8 @@ for x in chain(details.first_chapter_list, details.last_chapter_list):
     chapter_num = eval(x.name.replace("#", "").strip().lstrip("0"))
     parts = x.sub_title.split(": ")
     title = ": ".join(parts[1:])
-    title_parts = title.split(" ")
-    real_title = []
-    for x in title_parts:
-        y = x.lower().capitalize()
-        real_title.append(y)
 
-
-chapter_title = " ".join(real_title)
+chapter_title = title.lower().title()
 
 chapter_titles = soup.find_all("div", class_="title__listItemText md:!text-[16px] !text-[16px]")
 chapter_title_raw = chapter_titles[-1].contents
