@@ -177,7 +177,7 @@ if not SEARCH[1]:
         "title": "Template:Chapter_Countdown",
         "bot": "yes",
         "format": "json",
-        "text": "{{Countdown/Chapter\n|chapter=%s\n|date=%s\n}}" % (chapter_num+1, chapter_date),
+        "text": "{{Countdown/Chapter\n|chapter=%s\n|date=%s\n}}" % (chapter_num+2, chapter_date),
         "token": CSRF_TOKEN
     }
 
@@ -190,7 +190,7 @@ if not SEARCH[1]:
         "title": "Template:Latest_Chapter",
         "bot": "yes",
         "format": "json",
-        "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Chapter %s cover.png|Chapter %s cover.png|{{#ifexist:File:Chapter %s cover.jpg|Chapter 148 cover.jpg|None.png}}}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|[[Chapter %s|'''%s''']]<br>|%s|%s}}\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_title_jp, chapter_romaji),
+        "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Chapter %s cover.png|Chapter %s cover.png|{{#ifexist:File:Chapter %s cover.jpg|Chapter 148 cover.jpg|None.png}}}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|[[Chapter %s|'''Chapter %s''']]<br>|%s|%s}}\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_title_jp, chapter_romaji),
         "token": CSRF_TOKEN
     }
 
