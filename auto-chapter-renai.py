@@ -88,40 +88,52 @@ DATA = R.json()
 
 CSRF_TOKEN = DATA['query']['tokens']['csrftoken']
 
-
-# Step 4: POST request to edit a page
+# Step 4: GET request to search if page already exists
 PARAMS_3 = {
-    "action": "edit",
-    "title": "Chapter %s" % str(chapter_num),
-    "bot": "yes",
-    "format": "json",
-    "text": "{{stub}}{{Chapter \n|title         = \n|image    = Chapter %s.png\n|kanji         = \n|romaji       = \n|volume       = \n|pages = 18\n|arc = \n|issue = Weekly Young Jump #%d 2024 \n|release_date = %s\n|prev     = [[Chapter %s]]\n|next         = [[Chapter %s]]\n}}\n{{Nihongo|'''Chapter %s'''|%s|%s}} is the %s chapter of ''[[Renai Daikou]]'' manga series, written by [[Aka Akasaka]] and illustrated by [[Nishizawa 5mm]]. It will be released in issue #%d, 2024 of ''[[Weekly Young Jump]]'' on %s.<!--<ref>[https://ynjn.jp/viewer/9862/ 第%s話 ] (in Japanese). ''Young Jump''. Retrieved %s</ref>-->\n== Summary ==\n\n\n== Characters ==\n\n\n== Trivia ==\n\n\n== References ==\n{{References}}\n\n\n== Navigation ==\n{{MangaNavigation}}\n\n[[Category:Chapters]]" % (chapter_num, magazine_number, chapter_date, chapter_num-1, chapter_num+1, chapter_num, chapter_title_jp, chapter_romaji, chapter_ord, magazine_number, chapter_date, chapter_num, chapter_date),
-    "token": CSRF_TOKEN
-}
-R = S.post(URL, data=PARAMS_3)
-DATA = R.json()
-print(DATA)
-
-PARAMS_4 = {
-    "action": "edit",
-    "title": "Template:Chapter_Countdown",
-    "bot": "yes",
-    "format": "json",
-    "text": "{{Countdown/Chapter\n|chapter=%s\n|date=%s\n}}" % (chapter_num+1, chapter_date_cd),
-    "token": CSRF_TOKEN
-}
-R = S.post(URL, data=PARAMS_4)
-DATA = R.json()
-print(DATA)
-
-PARAMS_5 = {
-    "action": "edit",
-    "title": "Template:Last_Chapter",
-    "format": "json",
-    "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Chapter %s.png|Chapter %s.png|None.png}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|[[Chapter %s|'''Chapter %s''']]<br>|%s|%s}}\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_title_jp, chapter_romaji),
-    "token": CSRF_TOKEN
+    "action": "opensearch",
+    "namespace": "Main",
+    "search": "Chapter %s" % str(chapter_num),
+    "limit": "5",
+    "format": "json"
 }
 
-R = S.post(URL, data=PARAMS_5)
-DATA = R.json()
-print(DATA)
+R = S.get(url=URL, params=PARAMS_3)
+SEARCH = R.json()
+# if search came up empty
+if not SEARCH[1]:
+    # Step 5: POST request to edit a page
+    PARAMS_4 = {
+        "action": "edit",
+        "title": "Chapter %s" % str(chapter_num),
+        "bot": "yes",
+        "format": "json",
+        "text": "{{stub}}{{Chapter \n|title         = \n|image    = Chapter %s.png\n|kanji         = \n|romaji       = \n|volume       = \n|pages = 18\n|arc = \n|issue = Weekly Young Jump #%d 2024 \n|release_date = %s\n|prev     = [[Chapter %s]]\n|next         = [[Chapter %s]]\n}}\n{{Nihongo|'''Chapter %s'''|%s|%s}} is the %s chapter of ''[[Renai Daikou]]'' manga series, written by [[Aka Akasaka]] and illustrated by [[Nishizawa 5mm]]. It will be released in issue #%d, 2024 of ''[[Weekly Young Jump]]'' on %s.<!--<ref>[https://ynjn.jp/viewer/9862/ 第%s話 ] (in Japanese). ''Young Jump''. Retrieved %s</ref>-->\n== Summary ==\n\n\n== Characters ==\n\n\n== Trivia ==\n\n\n== References ==\n{{References}}\n\n\n== Navigation ==\n{{MangaNavigation}}\n\n[[Category:Chapters]]" % (chapter_num, magazine_number, chapter_date, chapter_num-1, chapter_num+1, chapter_num, chapter_title_jp, chapter_romaji, chapter_ord, magazine_number, chapter_date, chapter_num, chapter_date),
+        "token": CSRF_TOKEN
+    }
+    R = S.post(URL, data=PARAMS_4)
+    DATA = R.json()
+    print(DATA)
+
+    PARAMS_5 = {
+        "action": "edit",
+        "title": "Template:Chapter_Countdown",
+        "bot": "yes",
+        "format": "json",
+        "text": "{{Countdown/Chapter\n|chapter=%s\n|date=%s\n}}" % (chapter_num+1, chapter_date_cd),
+        "token": CSRF_TOKEN
+    }
+    R = S.post(URL, data=PARAMS_5)
+    DATA = R.json()
+    print(DATA)
+
+    PARAMS_6 = {
+        "action": "edit",
+        "title": "Template:Last_Chapter",
+        "format": "json",
+        "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Chapter %s.png|Chapter %s.png|None.png}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|[[Chapter %s|'''Chapter %s''']]<br>|%s|%s}}\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_title_jp, chapter_romaji),
+        "token": CSRF_TOKEN
+    }
+
+    R = S.post(URL, data=PARAMS_6)
+    DATA = R.json()
+    print(DATA)

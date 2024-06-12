@@ -23,15 +23,15 @@ import pykakasi
 import time
 from bs4 import BeautifulSoup
 
-print(time.time())
+
 response = requests.get("https://ynjn.jp/allEpisodeList/1156")
-print(time.time())
 soup = BeautifulSoup(response.content, "html.parser")
 
 load_dotenv()
 bot_user = os.environ['WIKI_BOT_USER']
 bot_pass = os.environ['WIKI_BOT_PASS']
 
+"""
 log = logging.getLogger()
 # overkill but mloader expects it, wont log otherwise
 def setup_logging():
@@ -69,7 +69,10 @@ for x in chain(details.first_chapter_list, details.last_chapter_list):
     parts = x.sub_title.split(": ")
     title = ": ".join(parts[1:])
 
-chapter_title = title.lower().title()
+chapter_title = title.lower().title()"""
+
+chapter_numbers = soup.find_all("li", class_="title__listItem")
+chapter_num = len(chapter_numbers)+6
 
 chapter_titles = soup.find_all("div", class_="title__listItemText md:!text-[16px] !text-[16px]")
 chapter_title_raw = chapter_titles[-1].contents
@@ -98,6 +101,8 @@ if dayofweek == "Thursday":
 else:
     chapter_date = 0
     magazine_number = 0
+
+print(chapter_num)
 
 S = requests.Session()
 
@@ -167,26 +172,28 @@ if not SEARCH[1]:
     DATA = R.json()
     print(DATA)
 
-PARAMS_5 = {
-    "action": "edit",
-    "title": "Template:Chapter_Countdown",
-    "format": "json",
-    "text": "{{Countdown/Chapter\n|chapter=%s\n|date=%s\n}}" % (chapter_num+1, chapter_date),
-    "token": CSRF_TOKEN
-}
+    PARAMS_5 = {
+        "action": "edit",
+        "title": "Template:Chapter_Countdown",
+        "bot": "yes",
+        "format": "json",
+        "text": "{{Countdown/Chapter\n|chapter=%s\n|date=%s\n}}" % (chapter_num+1, chapter_date),
+        "token": CSRF_TOKEN
+    }
 
-R = S.post(URL, data=PARAMS_5)
-DATA = R.json()
-print(DATA)
+    R = S.post(URL, data=PARAMS_5)
+    DATA = R.json()
+    print(DATA)
 
-PARAMS_6 = {
-    "action": "edit",
-    "title": "Template:Latest_Chapter",
-    "format": "json",
-    "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Chapter %s cover.png|Chapter %s cover.png|{{#ifexist:File:Chapter %s cover.jpg|Chapter 148 cover.jpg|None.png}}}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|[[Chapter %s|'''%s''']]<br>|%s|%s}}\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_title, chapter_title_jp, chapter_romaji),
-    "token": CSRF_TOKEN
-}
+    PARAMS_6 = {
+        "action": "edit",
+        "title": "Template:Latest_Chapter",
+        "bot": "yes",
+        "format": "json",
+        "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Chapter %s cover.png|Chapter %s cover.png|{{#ifexist:File:Chapter %s cover.jpg|Chapter 148 cover.jpg|None.png}}}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|[[Chapter %s|'''%s''']]<br>|%s|%s}}\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_title_jp, chapter_romaji),
+        "token": CSRF_TOKEN
+    }
 
-R = S.post(URL, data=PARAMS_6)
-DATA = R.json()
-print(DATA)
+    R = S.post(URL, data=PARAMS_6)
+    DATA = R.json()
+    print(DATA)
