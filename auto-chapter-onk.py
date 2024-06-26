@@ -31,7 +31,7 @@ load_dotenv()
 bot_user = os.environ['WIKI_BOT_USER']
 bot_pass = os.environ['WIKI_BOT_PASS']
 
-"""
+
 log = logging.getLogger()
 # overkill but mloader expects it, wont log otherwise
 def setup_logging():
@@ -69,10 +69,10 @@ for x in chain(details.first_chapter_list, details.last_chapter_list):
     parts = x.sub_title.split(": ")
     title = ": ".join(parts[1:])
 
-chapter_title = title.lower().title()"""
+chapter_title = title.lower().title()
 
 chapter_numbers = soup.find_all("li", class_="title__listItem")
-chapter_num = len(chapter_numbers)+6
+"""chapter_num = len(chapter_numbers)+6"""
 
 chapter_titles = soup.find_all("div", class_="title__listItemText md:!text-[16px] !text-[16px]")
 chapter_title_raw = chapter_titles[-1].contents
