@@ -31,7 +31,7 @@ load_dotenv()
 bot_user = os.environ['WIKI_BOT_USER']
 bot_pass = os.environ['WIKI_BOT_PASS']
 
-
+"""
 log = logging.getLogger()
 # overkill but mloader expects it, wont log otherwise
 def setup_logging():
@@ -69,10 +69,10 @@ for x in chain(details.first_chapter_list, details.last_chapter_list):
     parts = x.sub_title.split(": ")
     title = ": ".join(parts[1:])
 
-chapter_title = title.lower().title()
+chapter_title = title.lower().title()"""
 
 chapter_numbers = soup.find_all("li", class_="title__listItem")
-"""chapter_num = len(chapter_numbers)+6"""
+chapter_num = len(chapter_numbers)+6
 
 chapter_titles = soup.find_all("div", class_="title__listItemText md:!text-[16px] !text-[16px]")
 chapter_title_raw = chapter_titles[-1].contents
@@ -165,7 +165,7 @@ if not SEARCH[1]:
             "title": "Chapter %s" % str(chapter_num+1),
             "bot": "yes",
             "format": "json",
-            "text": "{{stub}}{{ChapterKai \n|name         = \n|Kana         = \n|Romaji       = \n|PAGENAME     = \n|imagepath    = Chapter %s cover.png\n|Color #1     = #FF9A00\n|Release Date = %s  (Weekly Young Jump 2024 #%d/ Mangaplus)\n|Previous     = [[Chapter %s]]\n|Next         = [[Chapter %s]]\n|Volume       = \n|Arc          = [[The End of the Play]]\n}}\n{{Nihongo|'''Chapter %s'''||}} is the %s chapter of ''[[Oshi no Ko]]'' manga series. It is written by [[Aka Akasaka]] and illustrated by [[Mengo Yokoyari]]. It will be released in ''Weekly Young Jump'' on %s.\n== Summary ==\n\n\n== Characters ==\n\n\n== Trivia ==\n\n\n== References ==\n{{References}}\n\n\n== Navigation ==\n{{MangaNavigation}}\n\n[[Category:Chapters]]\n[[Category:The End of The Play]]" % (chapter_num+1, chapter_date, magazine_number, chapter_num, chapter_num+2, chapter_num+1, chapter_ord, chapter_date),
+            "text": "{{stub}}{{ChapterKai \n|name         = \n|Kana         = \n|Romaji       = \n|PAGENAME     = \n|imagepath    = Chapter %s cover.png\n|Color #1     = #FF9A00\n|Release Date = %s  (Weekly Young Jump 2024 #%d/ Mangaplus)\n|Previous     = [[Chapter %s]]\n|Next         = [[Chapter %s]]\n|Volume       = \n|Arc          = [[Toward the Stars and Dreams]]\n}}\n{{Nihongo|'''Chapter %s'''||}} is the %s chapter of ''[[Oshi no Ko]]'' manga series. It is written by [[Aka Akasaka]] and illustrated by [[Mengo Yokoyari]]. It will be released in ''Weekly Young Jump'' on %s.\n== Summary ==\n\n\n== Characters ==\n\n\n== Trivia ==\n\n\n== References ==\n{{References}}\n\n\n== Navigation ==\n{{MangaNavigation}}\n\n[[Category:Chapters]]\n[[Category:Toward the Stars and Dreams]]" % (chapter_num+1, chapter_date, magazine_number, chapter_num, chapter_num+2, chapter_num+1, chapter_ord, chapter_date),
             "token": CSRF_TOKEN
         }
     R = S.post(URL, data=PARAMS_4)
@@ -177,7 +177,7 @@ if not SEARCH[1]:
         "title": "Template:Chapter_Countdown",
         "bot": "yes",
         "format": "json",
-        "text": "{{Countdown/Chapter\n|chapter=%s\n|date=%s\n}}" % (chapter_num+2, chapter_date),
+        "text": "{{Countdown/Chapter\n|chapter=%s\n|date=%s\n}}" % (chapter_num+1, chapter_date),
         "token": CSRF_TOKEN
     }
 
