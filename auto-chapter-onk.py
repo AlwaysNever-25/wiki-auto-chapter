@@ -80,14 +80,17 @@ chapter_title_full = chapter_title_raw[0]
 parts = chapter_title_full.split(" ")
 chapter_title_jp = parts[1]
 
-kks = pykakasi.kakasi()
-result = kks.convert(chapter_title_jp)
-chapter_romaji_parts = []
-for item in result:
-    x = "{}".format(item['hepburn'])
-    chapter_romaji_parts.append(x.capitalize())
+if chapter_title_jp == "今週は休載です":
+    chapter_num = len(chapter_numbers)+5
+else:
+    kks = pykakasi.kakasi()
+    result = kks.convert(chapter_title_jp)
+    chapter_romaji_parts = []
+    for item in result:
+        x = "{}".format(item['hepburn'])
+        chapter_romaji_parts.append(x.capitalize())
 
-chapter_romaji = " ".join(chapter_romaji_parts)
+    chapter_romaji = " ".join(chapter_romaji_parts)
 
 p = inflect.engine()
 
