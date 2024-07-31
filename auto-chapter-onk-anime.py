@@ -21,6 +21,7 @@ bot_pass = os.environ['WIKI_BOT_PASS']
 
 episode_date = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('MMMM D, YYYY')
 episode_time = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('HH')
+now =  arrow.utcnow().to('Asia/Tokyo').format('MMMM D, YYYY')
 
 S = requests.Session()
 
@@ -119,3 +120,16 @@ if not SEARCH[1]:
     R = S.post(URL, data=PARAMS_6)
     DATA = R.json()
     print(DATA)
+
+    PARAMS_7 = {
+        "action": "edit",
+        "title": "Template:Latest_Episode",
+        "bot": "yes",
+        "format": "json",
+        "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Episode %s Teaser 1.png|File:Episode %s Teaser 1.png|None.png}}|center|200px|link=Episode %s]]\n|episode = Episode %s:<br/>{{Nihongo|[[Episode %s|'''{{{ep_title|}}}''']]|{{{ep_title_jp|}}}|{{{ep_title_romaji|}}}}}\n|date = %s\n|}}\n|This page is intentionally blank.}}" % (episode_num, episode_num, episode_num, episode_num, episode_num, now),
+        "token": CSRF_TOKEN
+    }
+
+    R = S.post(URL, data=PARAMS_7)
+    DATA = R.json()
+    print(DATA)    
