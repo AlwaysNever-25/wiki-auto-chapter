@@ -126,7 +126,7 @@ if not SEARCH[1]:
         "title": "Template:Latest_Episode",
         "bot": "yes",
         "format": "json",
-        "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Episode %s Teaser 1.png|File:Episode %s Teaser 1.png|None.png}}|center|200px|link=Episode %s]]\n|episode = Episode %s:<br/>{{Nihongo|[[Episode %s|'''{{{ep_title|}}}''']]|{{{ep_title_jp|}}}|{{{ep_title_romaji|}}}}}\n|date = %s\n|}}\n|This page is intentionally blank.}}" % (episode_num, episode_num, episode_num, episode_num, episode_num, now),
+        "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Episode %s Teaser 1.png|Episode %s Teaser 1.png|None.png}}|center|200px|link=Episode %s]]\n|episode = Episode %s:<br/>{{Nihongo|[[Episode %s|'''{{{ep_title|}}}''']]|{{{ep_title_jp|}}}|{{{ep_title_romaji|}}}}}\n|date = %s\n|}}\n|This page is intentionally blank.}}" % (episode_num, episode_num, episode_num, episode_num, episode_num, now),
         "token": CSRF_TOKEN
     }
 
