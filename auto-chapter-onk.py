@@ -72,7 +72,7 @@ for x in chain(details.first_chapter_list, details.last_chapter_list):
 chapter_title = title.lower().title()"""
 
 chapter_numbers = soup.find_all("li", class_="title__listItem")
-chapter_num = len(chapter_numbers)+6
+chapter_num = len(chapter_numbers)-4
 
 chapter_titles = soup.find_all("div", class_="title__listItemText md:!text-[16px] !text-[16px]")
 chapter_title_raw = chapter_titles[-1].contents
@@ -81,7 +81,7 @@ parts = chapter_title_full.split(" ")
 chapter_title_jp = parts[1]
 
 if chapter_title_jp == "今週は休載です":
-    chapter_num = len(chapter_numbers)+5
+    chapter_num = len(chapter_numbers)-5
 else:
     kks = pykakasi.kakasi()
     result = kks.convert(chapter_title_jp)
