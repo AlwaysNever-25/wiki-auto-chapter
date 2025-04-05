@@ -1,0 +1,28 @@
+name: Update the Maerchen Crown wiki chapters
+on:
+    push:
+        branches:
+            - master
+    schedule:
+        - cron: '0,10 15 * * 3'
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        env:
+            URL : ${{ secrets.URL2 }}
+            WIKI_BOT_USER: ${{ secrets.WIKI_BOT_USER }}
+            WIKI_BOT_PASS: ${{ secrets.WIKI_BOT_PASS }}
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v4.1.2
+            - name: Setup Python
+              uses: actions/setup-python@v5.1.0
+              with:
+                python-version: '3.12'
+            - name: Python Dependency Installation
+              uses: py-actions/py-dependency-install@v4
+              with:
+                path: "requirements.txt"
+            - name: Run the python scripts
+              run: |
+                python3 auto-chapter-maerchen.py
