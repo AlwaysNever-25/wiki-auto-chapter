@@ -25,13 +25,11 @@ from dotenv import load_dotenv
 import os
 
 # Start of loading env section
-
 load_dotenv()
 bot_user = os.environ['WIKI_BOT_USER']
 bot_pass = os.environ['WIKI_BOT_PASS']
 
 # Start of getting English title and chapter number through Mangaplus API section
-
 log = logging.getLogger()
 # overkill but mloader expects it, wont log otherwise
 def setup_logging():
@@ -78,10 +76,9 @@ print(chapter_num)
 """
 
 # Start of getting Japanese title through the raw website (ynjn.jp)
-# requires Selenium, might consider running this locally instead of through gh action
+# requires Selenium, running this locally instead of through gh action
 
 # Start of MediaWiki API section
-
 S = requests.Session()
 URL = os.environ['URL2']
 
@@ -124,6 +121,7 @@ DATA = R.json()
 CSRF_TOKEN = DATA['query']['tokens']['csrftoken']
 
 # alternative method if mloader doesn't work
+# this requires updating the specific page to have the current chapter number, which can be done through API as well
 """
 PARAMS_3 = {
         "action": "parse",
@@ -164,9 +162,9 @@ PARAMS_4 = {
     "limit": "5",
     "format": "json"
 }
-
 R = S.get(url=URL, params=PARAMS_4)
 SEARCH = R.json()
+
 # if search came up empty
 if not SEARCH[1]:
     # Step 5: POST request to edit a page
@@ -200,7 +198,7 @@ if not SEARCH[1]:
         "title": "Template:Latest_Chapter",
         "bot": "yes",
         "format": "json",
-        "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Chapter %s.png|Chapter %s.png|{{#ifexist:File:Chapter %s.jpg|Chapter 2.png|None.png}}}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|'''{{CH|%s}}'''|{{CHNAME/JP|%s}}|{{CHNAME/JP|%sR}}}}\n|}}\n|date = %s\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_date_cur),
+        "text": "{{#if:{{{1|}}}\n|{{#switch:{{{1|}}}\n|image = [[File:{{#ifexist:File:Chapter %s.png|Chapter %s.png|{{#ifexist:File:Chapter %s.jpg|Chapter 2.png|None.png}}}}|center|200px|link=Chapter %s]]\n|chapter = Chapter %s: {{Nihongo|'''{{CH|%s}}'''|{{CHNAME/JP|%s}}|{{CHNAME/JP|%sR}}}}\n|date = %s\n|}}\n|This page is intentionally blank.}}" % (chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_num, chapter_date_cur),
         "token": CSRF_TOKEN
     }
 
