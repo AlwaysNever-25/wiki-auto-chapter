@@ -20,9 +20,7 @@ import requests
 import inflect
 import arrow
 import pykakasi
-import time
 from bs4 import BeautifulSoup
-
 
 response = requests.get("https://ynjn.jp/allEpisodeList/1156")
 soup = BeautifulSoup(response.content, "html.parser")
@@ -31,7 +29,6 @@ load_dotenv()
 bot_user = os.environ['WIKI_BOT_USER']
 bot_pass = os.environ['WIKI_BOT_PASS']
 
-"""
 log = logging.getLogger()
 # overkill but mloader expects it, wont log otherwise
 def setup_logging():
@@ -64,12 +61,13 @@ loader = MangaLoader(exporter, "super_high", False)
 
 details = loader._get_title_details(title_id)
 
-for x in chain(details.first_chapter_list, details.last_chapter_list):
-    chapter_num = eval(x.name.replace("#", "").strip().lstrip("0"))
-    parts = x.sub_title.split(": ")
-    title = ": ".join(parts[1:])
+for x in chain(details.chapter_list_group):
+    for y in (x.first_chapter_list):
+        chapter_num = eval(x.name.replace("#", "").replace(",", "").strip().lstrip("0"))
+        parts = x.sub_title.split(": ")
+        title = ": ".join(parts[1:])
 
-chapter_title = title.lower().title()"""
+chapter_title = title.lower().title()
 
 chapter_numbers = soup.find_all("li", class_="title__listItem")
 chapter_num = len(chapter_numbers)-4

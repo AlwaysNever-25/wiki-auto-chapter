@@ -173,7 +173,7 @@ if not SEARCH[1]:
             "title": "Chapter %s" % str(chapter_num+1),
             "bot": "yes",
             "format": "json",
-            "text": "{{Stub}}{{Infobox/Chapter \n| image          = Chapter %s.png\n| volume         = \n| pages          = \n| arc            = \n| release        = %s  (Weekly Young Jump 2024 #%d/ Mangaplus)\n| episode        = \n}}\n{{Nihongo|{{CH|%s}}|{{CHNAME|%s}}|{{CHNAME/JP|%s}}}} is the %s chapter of [[Maerchen Crown|''Maerchen Crown'']] manga series. It will be released on %s in ''Weekly Young Jump'' issue #%d 2025.\n== Summary ==\n\n== Plot ==\n\n== Characters ==\n''In order of appearance''\n\n== Trivia ==\n\n== Links ==\n\n<!--\n== References ==\n{{References}}\n-->\n\n== Navigation ==\n{{Navbox/Chapter}}" % (chapter_num+1, chapter_date, magazine_number, chapter_num+1, chapter_num+1, chapter_num+1, chapter_ord, chapter_date, magazine_number),
+            "text": "{{Stub}}{{Infobox/Chapter \n| image          = Chapter %s.png\n| volume         = \n| pages          = \n| arc            = \n| release        = %s  (Weekly Young Jump 2024 #%d/ Mangaplus)\n| episode        = \n}}\n{{Nihongo|{{CH|%s}}|{{CHNAME/JP|%s}}|{{CHNAME/JP|%sR}}}} is the %s chapter of [[Maerchen Crown|''Maerchen Crown'']] manga series. It will be released on %s in ''Weekly Young Jump'' issue #%d 2025.\n== Summary ==\n\n== Plot ==\n\n== Characters ==\n''In order of appearance''\n\n== Trivia ==\n\n== Links ==\n\n<!--\n== References ==\n{{References}}\n-->\n\n== Navigation ==\n{{Navbox/Chapter}}" % (chapter_num+1, chapter_date, magazine_number, chapter_num+1, chapter_num+1, chapter_num+1, chapter_ord, chapter_date, magazine_number),
             "token": CSRF_TOKEN
         }
     R = S.post(URL, data=PARAMS_5)
