@@ -80,7 +80,7 @@ print(chapter_num)
 
 # Start of MediaWiki API section
 S = requests.Session()
-URL = os.environ['URL2']
+URL = "https://maerchen-crown.fandom.com/api.php"
 
 # Step 1: GET request to fetch login token
 PARAMS_0 = {
