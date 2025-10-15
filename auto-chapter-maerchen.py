@@ -143,6 +143,7 @@ chapter_ord = p.number_to_words(p.ordinal(chapter_num+1))
 """
 date = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('DD-MM-YYYY')
 dayofweek = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('dddd')
+chapter_date_cur = arrow.utcnow().to('Asia/Tokyo').format('MMMM DD, YYYY')
 chapter_date = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('MMMM DD, YYYY')
 
 if dayofweek == "Thursday":
@@ -187,7 +188,7 @@ if not SEARCH[1]:
             "title": "Chapter %s" % str(chapter_num+1),
             "bot": "yes",
             "format": "json",
-            "text": "{{Stub}}{{Infobox/Chapter \n| image          = Chapter %s.png\n| volume         = \n| pages          = \n| arc            = \n| release        = %s \n| issue        = %d %d\n| episode        = \n}}\n{{Nihongo|{{CH|{{#var:CH}} }}|{{CHNAME/JP|{{#var:CH}} }}|{{CHNAME/JP|{{#var:CH}}R}}}}is the {{OTW|{{#var:CH}} }} chapter of the ''[[Maerchen Crown]]'' manga series. It {{#ifexpr:{{#time: U |now}} > {{#time: U |{{#var:Date}} }}|was|will be}} released on {{#time: l, j F Y|{{#var:Date}} }} in ''[[Weekly Young Jump]]'' issue #{{#var:YJ}}.\n== Summary ==\n\n== Plot ==\n\n== Characters ==\n''In order of appearance''\n\n== Trivia ==\n\n== Links ==\n\n<!--\n== References ==\n{{References}}\n-->\n\n== Navigation ==\n{{Navbox/Chapter}}" % (chapter_num+1, date, magazine_number, magazine_year),
+            "text": "{{Stub}}{{Infobox/Chapter \n| image          = Chapter %s.png\n| volume         = \n| pages          = \n| arc            = \n| release        = %s \n| issue        = %d %d\n| episode        = \n}}\n{{Nihongo|{{CH|{{#var:CH}} }}|{{CHNAME/JP|{{#var:CH}} }}|{{CHNAME/JP|{{#var:CH}}R}}}}is the {{OTW|{{#var:CH}} }} chapter of the ''[[Maerchen Crown]]'' manga series. It {{Tense|{{#var:Date}}}} released on {{#time: l, j F Y|{{#var:Date}} }} in ''[[Weekly Young Jump]]'' issue #{{#var:YJ}}.\n== Summary ==\n\n== Characters ==\n''In order of appearance''\n\n== Trivia ==\n\n== Links ==\n<!--* [https://mangaplus.shueisha.co.jp/viewer/<nowiki>[#]</nowiki> Märchen Crown _ MANGA Plus]\n== References ==\n{{References}}\n-->\n\n== Navigation ==\n{{Navbox/Chapter}}" % (chapter_num+1, date, magazine_number, magazine_year),
             "token": CSRF_TOKEN
         }
     R = S.post(URL, data=PARAMS_5)
