@@ -17,7 +17,9 @@ from itertools import chain
 import logging
 
 import requests
+"""
 import inflect
+"""
 import arrow
 
 # dotenv
@@ -133,27 +135,25 @@ res = S.get(URL, params=PARAMS_3)
 DATA = res.json()
 chapter_num = int(DATA['parse']['wikitext']['*'])
 print(chapter_num)
-"""
+
 
 p = inflect.engine()
 
 chapter_ord = p.number_to_words(p.ordinal(chapter_num+1))
-date = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('MM-DD')
+"""
+date = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('DD-MM-YYYY')
 dayofweek = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('dddd')
 
 if dayofweek == "Thursday":
-    chapter_date_cur = arrow.utcnow().to('Asia/Tokyo').format('MMMM D, YYYY')
-    chapter_date = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('MMMM D, YYYY')
-    chapter_date_ord = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('MMMM Do, YYYY')
     magazine_number = int(arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('DDD')) / 7 + 5
+    magazine_year = int(arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('YYYY'))
 else:
-    chapter_date = 0
+    date = 0
     magazine_number = 0
 
 """
 print(chapter_ord)
 print(chapter_date_ord)
-"""
 
 ord_suffixes = ["th", "st", "nd", "rd"]
 sup_prefix = "<sup>"
@@ -164,7 +164,6 @@ for x in ord_suffixes:
         chapter_date_ord_sup = chapter_date_ord.replace(x, y)
         break
 
-"""
 print(chapter_date_ord_sup)
 """
 
@@ -187,7 +186,7 @@ if not SEARCH[1]:
             "title": "Chapter %s" % str(chapter_num+1),
             "bot": "yes",
             "format": "json",
-            "text": "{{Stub}}{{Infobox/Chapter \n| image          = Chapter %s.png\n| volume         = \n| pages          = \n| arc            = \n| release        = %s  (Weekly Young Jump 2025 #%d/ Mangaplus)\n| episode        = \n}}\n{{Nihongo|{{CH|%s}}|{{CHNAME/JP|%s}}|{{CHNAME/JP|%sR}}}} is the %s chapter of [[Maerchen Crown|''Maerchen Crown'']] manga series. It will be released on %s in ''Weekly Young Jump'' issue #%d 2025.\n== Summary ==\n\n== Plot ==\n\n== Characters ==\n''In order of appearance''\n\n== Trivia ==\n\n== Links ==\n\n<!--\n== References ==\n{{References}}\n-->\n\n== Navigation ==\n{{Navbox/Chapter}}" % (chapter_num+1, chapter_date_ord_sup, magazine_number, chapter_num+1, chapter_num+1, chapter_num+1, chapter_ord, chapter_date_ord_sup, magazine_number),
+            "text": "{{Stub}}{{Infobox/Chapter \n| image          = Chapter %s.png\n| volume         = \n| pages          = \n| arc            = \n| release        = %s \n| issue        = %d %d\n| episode        = \n}}\n{{Nihongo|{{CH|{{#var:CH}} }}|{{CHNAME/JP|{{#var:CH}} }}|{{CHNAME/JP|{{#var:CH}}R}}}}is the {{OTW|{{#var:CH}} }} chapter of the ''[[Maerchen Crown]]'' manga series. It {{#ifexpr:{{#time: U |now}} > {{#time: U |{{#var:Date}} }}|was|will be}} released on {{#time: l, j F Y|{{#var:Date}} }} in ''[[Weekly Young Jump]]'' issue #{{#var:YJ}}.\n== Summary ==\n\n== Plot ==\n\n== Characters ==\n''In order of appearance''\n\n== Trivia ==\n\n== Links ==\n\n<!--\n== References ==\n{{References}}\n-->\n\n== Navigation ==\n{{Navbox/Chapter}}" % (date, magazine_number, magazine_year),
             "token": CSRF_TOKEN
         }
     R = S.post(URL, data=PARAMS_5)
