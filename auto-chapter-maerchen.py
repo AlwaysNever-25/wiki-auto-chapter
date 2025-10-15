@@ -143,6 +143,7 @@ chapter_ord = p.number_to_words(p.ordinal(chapter_num+1))
 """
 date = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('DD-MM-YYYY')
 dayofweek = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('dddd')
+chapter_date = arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('MMMM DD, YYYY')
 
 if dayofweek == "Thursday":
     magazine_number = int(arrow.utcnow().shift(weeks=+1).to('Asia/Tokyo').format('DDD')) / 7 + 5
